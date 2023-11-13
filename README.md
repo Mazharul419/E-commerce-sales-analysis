@@ -1,4 +1,5 @@
 # E-commerce-sales-analysis
+![E-commerce photo](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/db7be273-deb2-4db5-855e-a7e997fce36a)
 
 ## Table of Contents
 - [Project brief](#project-brief)
