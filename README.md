@@ -6,6 +6,9 @@
 - [Importing CSV file into PostgreSQL](#importing-csv-file-into-postgresql)
 - [Customer analysis](#customer-analysis)
 - [Cities analysis](#cities-analysis)
+- [Seasonality analysis](#seasonality-analysis)
+- [Dashboard in PowerBI](#dashboard-in-powerbi)
+- [Recommendations](#recommendations)
 
 
 ### Project brief
@@ -64,7 +67,7 @@ A back-up database .SQL file was also created in a similar file location as the 
 The data is now ready to be queried. Starting from the beginning:
 
 ### Customer analysis
-Who are the 10 largest customers by total sales?
+*Who are the 10 largest customers by total sales?*
 
 For this question the total sales value for each customer needs to be queried.
 
@@ -92,7 +95,7 @@ Here is the output of the code:
 > The customer name, id and total sales is tallied for the top 5 customers.
 
 ### Cities analysis
-Create a report showing the top 3 cities per state ranked by their unique orders.
+*Create a report showing the top 3 cities per state ranked by their unique orders.*
 
 Similar to the above scenario the required information needs to be queried from both customer and sales table. A similar method is employed using a LEFT JOIN to obtain data from both tables. Unique orders is required therefore COUNT and DISTINCT functions are used to obtain the number of these across each city. 
 
@@ -117,7 +120,7 @@ The output is as follows:
 ![2_cities_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/9143e902-6aa3-4af2-9eca-4055ed36b895)
 
 ### Seasonality analysis
-Analyse the Chair sub-category to determine if there seasonality in the sales.
+*Analyse the Chair sub-category to determine if there seasonality in the sales.*
 
 For this the information required are month the order date falls in, the total sales during that month and a method to only select sub-category "Chair".
 
@@ -140,4 +143,69 @@ The result is as follows:
 
 ![3_seasonality_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/eab75b29-c839-4a65-972c-453290d85c11)
 
+![3_seasonality_analysis_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/ae33c0ea-214c-411c-a672-c8b209f72ebd)
 
+> From the above there is a seasonality in sales throughout the year where sales are dormant at 10K dollars at the start of the year in January-February and then stagenates at roughly 20K dollars during March-August. Between September-December (months 9-12) Chair sales kick in significantly where most months see sales above 40K dollars.
+
+### Dashboard in PowerBI
+*The Sales Manager will be heading to a meeting with the Directors to review overall sales. Create a dashboard in PowerBI with key Sales data including highest and lowest sale, highest and lowest profit and graphs for 10 largest customers by total sales, Seasonality of Chairs and the sales in the top 3 cities of the top 4 states.*
+
+To obtain the highest and lowest sales and profits the original .csv sales data is imported into PowerBI under the Home ribbon, under Data: Get Data-> Text/CSV. The location of the file is browsed and is imported in once done. The Card visual is the most suitable to represent these values so are represented by these.
+
+To obtain the customer and chair sales data the SQL outputs from the previous exercises is copied into PowerBI. Once done column and line graphs are prepared for these respectively. Note for Chair data the months are converted into month names using the following DAX function:
+
+```sql
+MonthName = FORMAT(DATE(1, [month_n], 1), "MMM")
+```
+Finally to obtain the orders of the top 3 cities across the top 4 performing states the output for this exercise requires a filter by the top 4 performing states.
+
+To do this the below query is used to obtain the best performing states in terms of orders:
+```sql
+SELECT 
+	b.state,
+ 	COUNT(DISTINCT(a.order_id)) AS order_num
+FROM sales as a
+LEFT JOIN customer as b
+on a.customer_id = b.customer_id
+GROUP BY b.state
+ORDER BY order_num DESC
+LIMIT 4;
+```
+Below is the output:
+![4_Dashboard_PowerBI_1](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/b6d3d970-fb86-48f7-a9bb-c652690eda9f)
+
+Now that the top 4 states are known the IN function will be used to filter the original query by these states:
+```sql
+SELECT* FROM
+(SELECT 
+	b.state, 
+	b.city,
+ 	COUNT(DISTINCT(a.order_id)) AS order_num,
+	row_number() over (partition by b.state order by (SELECT COUNT(DISTINCT(a.order_id)) AS order_num) desc) as rank_n
+FROM sales as a
+LEFT JOIN customer as b
+on a.customer_id = b.customer_id
+GROUP BY b.state,b.city) as c
+WHERE c.rank_n<=3 AND
+c.state IN ('California','New York','Texas','Pennsylvania');
+```
+The output is as follows:
+
+![4_Dashboard_PowerBI_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/15c3201b-6d06-4678-b644-e7ce339a3d5a)
+
+Similar to previous this table can be copied into PowerBI for visualisation.
+
+Completing the visualisations for all the data uncovered thus far:
+
+![4_Dashboard_PowerBI_3](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/54a678d0-a61b-49ca-a6c3-950ae3285916)
+
+### Recommendations
+*Make recommendations based on the above how the business can improve its sales.*
+
+The recommendations based on the above information gathered are the following:
+
+1. Incentives should be made for our top 5 customers to drive more business from them, e.g. providing special discounts or promotions based on products they buy the most from the business. This is especially true of Sean Miller and Tamara Chand who bring the most sales.
+
+2. Implement a loyalty program for customers in cities where orders are occuring most. This would incentivise customers who are already spending to spend more and drive further business.
+
+3. Design promotional offers during the Autumn season should be made for chairs to drive further business from customers during these peak sales months where customers purchase the most. One improvement on this is to inspect these for all categories of items to determine which ones sell the most in order to prioritise marketing budget towards.
