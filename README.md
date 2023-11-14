@@ -134,9 +134,9 @@ SELECT
 	SUM(sales) AS total_sales 
 FROM sales
 WHERE product_id IN (SELECT 
-					 	product_id 
-					 FROM product 
-					 WHERE sub_category = 'Chairs')
+			product_id 
+		     FROM product 
+		     WHERE sub_category = 'Chairs')
 GROUP BY month_n
 ORDER BY month_n;
 ```
@@ -146,7 +146,7 @@ The result is as follows:
 
 ![3_seasonality_analysis_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/ae33c0ea-214c-411c-a672-c8b209f72ebd)
 
-> From the above there is a seasonality in sales throughout the year where sales are dormant at 10K dollars at the start of the year in January-February and then stagenates at roughly 20K dollars during March-August. Between September-December (months 9-12) Chair sales kick in significantly where most months see sales above 40K dollars.
+> From the above there is a seasonality in sales throughout the year where sales are dormant at 10K dollars at the start of the year in January-February and then stagnates at roughly 20K dollars during March-August. Between September-December (months 9-12) Chair sales kick in significantly where most months see sales above 40K dollars.
 
 ### Dashboard in PowerBI
 *The Sales Manager will be heading to a meeting with the Directors to review overall sales. Create a dashboard in PowerBI with key Sales data including highest and lowest sale, highest and lowest profit and graphs for 10 largest customers by total sales, Seasonality of Chairs and the sales in the top 3 cities of the top 4 states.*
