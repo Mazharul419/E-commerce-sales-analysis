@@ -1,5 +1,6 @@
 # E-commerce-sales-analysis
-![E-commerce photo](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/db7be273-deb2-4db5-855e-a7e997fce36a)
+![E-commerce photo](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/228a6ed9-0051-45f0-8c59-19bb6212e605)
+
 
 ## Table of Contents
 - [Project brief](#project-brief)
@@ -53,15 +54,18 @@ The data is now imported and looks fine. Using the SELECT * FROM command below a
 
 Customer table
 
-![Customer_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/3f457344-dd69-4668-96e0-5ca98c17b6ab)
+![Customer_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/97001f16-38a8-46a5-aedc-e8ff2e03259d)
+
 
 Product table
 
-![Product_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/3646cbd3-badd-4a69-98ce-5d82e66bbe28)
+![Product_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/c18bab15-22a9-4649-abe8-80f7b3586447)
+
 
 Sales table
 
-![Sales_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/1e72b9f1-678d-4049-a8bc-f28238500b1b)
+![Sales_table](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/3bcce686-a680-4abb-9b24-5170a61f39f5)
+
 
 A back-up database .SQL file was also created in a similar file location as the CSVs in the event of data corruption.
 
@@ -91,7 +95,8 @@ LIMIT 10;
 ```
 Here is the output of the code:
 
-![1_customer_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/cfaeed96-81d5-4f19-9d46-383fcfca728b)
+![1_customer_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/8df0759f-d7db-4e3f-ad44-b5befc072bef)
+
 
 > The customer name, id and total sales is tallied for the top 5 customers.
 
@@ -118,7 +123,7 @@ WHERE c.rank_n<=3;
 ```
 The output is as follows:
 
-![2_cities_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/9143e902-6aa3-4af2-9eca-4055ed36b895)
+![2_cities_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/3a617ec5-d39f-4bc1-9a92-236dfa1bca51)
 
 ### Seasonality analysis
 *Analyse the Chair sub-category to determine if there seasonality in the sales.*
@@ -142,9 +147,9 @@ ORDER BY month_n;
 ```
 The result is as follows:
 
-![3_seasonality_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/eab75b29-c839-4a65-972c-453290d85c11)
+![3_seasonality_analysis](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/30020308-1682-4172-bf53-e12bce15bff7)
 
-![3_seasonality_analysis_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/ae33c0ea-214c-411c-a672-c8b209f72ebd)
+![3_seasonality_analysis_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/0305a078-783d-467b-88b2-20b529ee4bc1)
 
 > From the above there is a seasonality in sales throughout the year where sales are dormant at 10K dollars at the start of the year in January-February and then stagnates at roughly 20K dollars during March-August. Between September-December (months 9-12) Chair sales kick in significantly where most months see sales above 40K dollars.
 
@@ -173,7 +178,8 @@ ORDER BY order_num DESC
 LIMIT 4;
 ```
 Below is the output:
-![4_Dashboard_PowerBI_1](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/b6d3d970-fb86-48f7-a9bb-c652690eda9f)
+![4_Dashboard_PowerBI_1](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/ed774df4-db02-44f2-b306-44fcb8988ddc)
+
 
 Now that the top 4 states are known the IN function will be used to filter the original query by these states:
 ```sql
@@ -192,13 +198,15 @@ c.state IN ('California','New York','Texas','Pennsylvania');
 ```
 The output is as follows:
 
-![4_Dashboard_PowerBI_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/15c3201b-6d06-4678-b644-e7ce339a3d5a)
+![4_Dashboard_PowerBI_2](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/a1136b6c-4fbe-4a86-9897-4c1524142acc)
+
 
 Similar to previous this table can be copied into PowerBI for visualisation.
 
 Completing the visualisations for all the data uncovered thus far:
 
-![4_Dashboard_PowerBI_3](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/54a678d0-a61b-49ca-a6c3-950ae3285916)
+![4_Dashboard_PowerBI_3](https://github.com/Mazharul419/E-commerce-sales-analysis/assets/102329833/5d895798-4ed3-40d7-b8f7-e44c26e21f46)
+
 
 ### Recommendations
 *Make recommendations based on the above how the business can improve its sales.*
